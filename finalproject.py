@@ -1,34 +1,22 @@
-# import smtplib
-# sender = "pakaipython@gmail.com"
-# password = str(input("Please input your password: "))
-# receiever = "sweghooney@gmail.com"
-# # subject = "An email via python"
-# body = "Halo, this mail was sent via python."
-
-# server = smtplib.SMTP('smtp.gmail.com', 587)
-# server.starttls()
-# server.login(sender, password)
-# print("Login success")
-# server.sendmail(sender, receiever, body)
-# print("Email has been sent to ", receiever)
-
 import getpass
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-
 sender = str(input("Please input your username: "))
 password = getpass.getpass('Please input your password: ')
-# password = str(input("Please input your password: "))
-receiver = open ("receiver_list.txt", "r")
-print(receiver.read())
-# receiver = [i.strip() for i in receiver.readlines()]
-# receiver = str(input("Please input the email address: "))
+# receiver = str(input("Please input email address: "))
+with open ("receiver_list.txt", "r") as file:
+    receiver = file.read().replace('\n','')
+# print(receiver.read())
+# receiver = open("receiver_list.txt", "r+")
+# receiver_list = [i.strip() for i in receiver.readlines()]
 
 message = MIMEMultipart()
 message ['From'] = sender
-message ['To'] = ",".join(receiver)
+# for addr in receiver:
+#     message ['To'] = addr
+message ['To'] = receiver
 message ['Subject'] = str(input("Input your mail subject: "))
 
 body = str(input("Input your mail body: "))
@@ -38,6 +26,6 @@ server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
 server.login(sender, password)
 print("Login success")
-server.sendmail('sender@gmail.com', ["receiver@gmail.com", "receiver@gmail.com"], message.as_string())
+server.sendmail(sender, receiver, message.as_string())
 server.quit
 print("Email has been sent to ", receiver)
