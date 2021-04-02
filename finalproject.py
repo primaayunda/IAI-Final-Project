@@ -24,8 +24,17 @@ message.attach(MIMEText(body, 'plain'))
 
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
-server.login(sender, password)
-print("Login success")
+
+a = (server.login(sender, password)
 server.sendmail(sender, receiver, message.as_string())
-server.quit
-print("Email has been sent to ", receiver)
+server.quit)
+
+for a in receiver (open ("receiver_list.txt", "r")):
+    print("Login success")
+    print("Email has been sent to ", receiver)
+
+# server.login(sender, password)
+# print("Login success")
+# server.sendmail(sender, receiver, message.as_string())
+# server.quit
+# print("Email has been sent to ", receiver)
