@@ -7,11 +7,9 @@ sender = str(input("Please input your username: "))
 password = getpass.getpass('Please input your password: ')
 
 receiver = open ("receiver_list.txt", "r")
-receiverlist = []
 for i in receiver:
     i = i.replace("\n", "")
-    receiverlist.append(i.split(" "))
-print(receiverlist)
+    print(i.split(" "))
 
 message = MIMEMultipart()
 message ['From'] = sender
@@ -25,7 +23,7 @@ server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
 server.login(sender, password)
 print("Login success")
-for email in receiverlist:
-    server.sendmail(sender, receiverlist, message.as_string())
+for email in i:
+    server.sendmail(sender, i, message.as_string())
 server.quit()
-print("Email has been sent to ", receiverlist)
+print("Email has been sent to ", i)
