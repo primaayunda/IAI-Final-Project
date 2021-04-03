@@ -9,11 +9,12 @@ password = getpass.getpass('Please input your password: ')
 receiver = open ("receiver_list.txt", "r")
 for i in receiver:
     i = i.replace("\n", "")
-    print(i.split(" "))
+    l = (i.split(" "))
+    print(l)
 
 message = MIMEMultipart()
 message ['From'] = sender
-message ['To'] = i
+message ['To'] = l
 message ['Subject'] = str(input("Input your mail subject: "))
 
 body = str(input("Input your mail body: "))
@@ -24,6 +25,6 @@ server.starttls()
 server.login(sender, password)
 print("Login success")
 for email in i:
-    server.sendmail(sender, i, message.as_string())
+    server.sendmail(sender, l, message.as_string())
 server.quit()
-print("Email has been sent to ", i)
+print("Email has been sent to ", l)
