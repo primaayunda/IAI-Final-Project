@@ -6,10 +6,10 @@ from email.mime.text import MIMEText
 sender = str(input("Please input your username: "))
 password = getpass.getpass('Please input your password: ')
 
-receiver = open ("receiver_list.txt", "r")
-for i in receiver:
-    i = i.replace("\n", "")
-    print(i.split(" "))
+receiver = []
+relist = open ("receiver_list.txt", "r")
+for i in relist:
+    receiver.append(i.replace("\n", ""))
 
 message = MIMEMultipart()
 message ['From'] = sender
@@ -23,7 +23,7 @@ server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
 server.login(sender, password)
 print("Login success")
-for email in i:
-    server.sendmail(sender, i, message.as_string())
+for email in receiver:
+    server.sendmail(sender, email, message.as_string())
+    print("Email has been sent to ", email)
 server.quit()
-print("Email has been sent to ", i)
